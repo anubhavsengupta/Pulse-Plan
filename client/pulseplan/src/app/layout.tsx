@@ -5,7 +5,7 @@ import "./globals.css";
 import { SessionProvider } from 'next-auth/react'
 import { Provider } from 'react-redux'
 import { store } from '../state/store'
-
+import Navbar from "@/components/Navbar";
 const inter = Inter({ subsets: ["latin"] });
 
 // export const metadata: Metadata = {
@@ -22,7 +22,10 @@ export default function RootLayout({
 
       <html lang="en">
         <Provider store={store}>
-          <body className={inter.className}>{children}</body>
+          <body className={inter.className}>
+            <Navbar></Navbar>
+            {children}
+          </body>
         </Provider>
       </html>
 
