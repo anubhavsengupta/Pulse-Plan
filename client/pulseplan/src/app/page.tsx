@@ -1,16 +1,31 @@
 "use client";
 import { useEffect, useState } from 'react';
 import Form from '@/components/Form';
+import useAuth from '../middleware/useAuth';
+import List from '@/components/List';
+
+type Exercise = {
+  name: string;
+  reps: number;
+  sets: number;
+};
 
 export default function Home() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const loggedInStatus = localStorage.getItem('isLoggedIn');
-      setIsLoggedIn(loggedInStatus === 'true');
-    }
-  }, []);
+  const isLoggedIn = useAuth();
+
+  const [exerciseList, setExerciseList] = useState<Exercise[]>([]);
+
+  const handleDelete = (idx: any) => {
+    console.log('deleting', idx);
+  }
+
+  const addExercise = (exercise: Exercise) => {
+    setExerciseList(exerciseList => [...exerciseList, exercise]);
+  }
+
+
+
   if (!isLoggedIn) {
     return (
       <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -24,7 +39,8 @@ export default function Home() {
     return (
       <>  
       <h1>Hi there.</h1>
-      <Form></Form>
+      <Form submitExercise={addExercise}></Form>
+      <List items={exerciseList} deleteItem={handleDelete}></List>
       </>
     )
   }
