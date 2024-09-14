@@ -10,12 +10,27 @@ function Form({submitExercise}: any) {
   // Handle form submission
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    submitExercise({
+    // submit to db 
+    const exercise = {
         name: exerciseName,
-        reps: sets,
-        sets: reps
-      });
-    // send data to parent component.
+        sets: sets,
+        reps: reps,
+        userId: 0
+    }
+    const commit = async () => {
+        console.log(exercise);
+        const res = await fetch("http://localhost:8080/api/v1/exercises", {
+            method: 'POST',
+            body: JSON.stringify(exercise),
+            headers: { "Content-Type": "application/json" }
+        });
+        if (res.ok && res.body) {
+            
+            console.log("Exercise saved.");
+        }
+    }
+    commit();
+    submitExercise(exercise);
 
     setExerciseName('');
     setSets('');

@@ -15,7 +15,7 @@ function Navbar() {
                     {isLoggedIn ?
                     <>
                         <Link href="/" className="hover:bg-blue-700 p-2 rounded">Home</Link>
-                        <Link href="/Logout" className="hover:bg-blue-700 p-2 rounded">Logout</Link>
+                        <Link href="/logout" className="hover:bg-blue-700 p-2 rounded">Logout</Link>
                     </>
                     : 
                     <>
